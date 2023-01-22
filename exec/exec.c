@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/01/22 18:22:00 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:33:52 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(&(*philo).mutex);
-//	pthread_mutex_lock((*philo).mutex_left);
+	pthread_mutex_lock((*philo).mutex_left);
 	printf("eat - %d, %d\n", (*philo).philo_no, (*philo).eat_nb);
 	usleep((*philo).time_to_eat * 1000);
 	pthread_mutex_unlock(&(*philo).mutex);
-//	pthread_mutex_unlock((*philo).mutex_left);
+	pthread_mutex_unlock((*philo).mutex_left);
 	(*philo).eat_nb += 1;
 }
 
