@@ -6,13 +6,11 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/01/30 15:53:11 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:26:54 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-
 
 void	get_usleep(long time)
 {
@@ -31,51 +29,71 @@ void	get_usleep(long time)
 	}
 }
 
+void	print_state(t_philo *philo, int state)
+{
+	static int	writing = TRUE;
+
+	usleep(100);
+	if (state == -1 && writing == TRUE)
+	{
+		writing = FALSE;
+		usleep(800);
+		printf("%8ld ms  -  Philo No %4d  diedddddddd\n\n\n",
+		new_timestamp((*philo).time_stamp), (*philo).philo_no);
+	}
+	else if (state == 0 && writing == TRUE)
+	{
+		printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
+		new_timestamp((*philo).time_stamp), (*philo).philo_no);
+		printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
+		new_timestamp((*philo).time_stamp), (*philo).philo_no);
+		printf("%8ld ms  -  Philo No %4d  is eating\n",
+		new_timestamp((*philo).time_stamp), (*philo).philo_no);
+	}
+	else if (state == 1 && writing == TRUE)
+	{
+		printf("%8ld ms  -  Philo No %4d  is sleeping\n",
+		new_timestamp((*philo).time_stamp), (*philo).philo_no);
+	}
+	else if (state == 2 && writing == TRUE)
+	{
+		printf("%8ld ms  -  Philo No %4d  is thinking\n",
+		new_timestamp((*philo).time_stamp), (*philo).philo_no);
+	}
+}
+
 void	think(t_philo *philo)
 {
 	if ((*philo).dead == FALSE)
-	{
-		printf("%8ld ms  -  Philo No %4d  is thinking\n", new_timestamp((*philo).time_stamp), (*philo).philo_no);
-	}
+		print_state(philo, 2);
 	if (get_timestamp() - (*philo).last_eat >= (*philo).time_to_die)
-		philo_is_dead(philo);
+		print_state(philo, -1);
 }
 
 void	sleep_time(t_philo *philo)
 {
+	usleep((*philo).philo_no);
 	if ((*philo).dead == FALSE)
-	{
-		printf("%8ld ms  -  Philo No %4d  is sleeping\n", new_timestamp((*philo).time_stamp), (*philo).philo_no);
-	}
+		print_state(philo, 1);
 	if ((*philo).eat_nb >= (*philo).minimum_eat && (*philo).minimum_eat != -1)
 		(*philo).eated = TRUE;
 	usleep((*philo).time_to_sleep * 1000);
 	if (get_timestamp() - (*philo).last_eat >= (*philo).time_to_die)
-		philo_is_dead(philo);
+		print_state(philo, -1);
 }
 
-void	print_eat(t_philo *philo)
-{
-	printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
-	new_timestamp((*philo).time_stamp), (*philo).philo_no);
-	printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
-	new_timestamp((*philo).time_stamp), (*philo).philo_no);
-	printf("%8ld ms  -  Philo No %4d  is eating\n",
-	new_timestamp((*philo).time_stamp), (*philo).philo_no);
-	
-}
 
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(&(*philo).mutex);
 	pthread_mutex_lock((*philo).mutex_left);
 	if ((*philo).dead == FALSE)
-		print_eat(philo);
+		print_state(philo, 0);
 	(*philo).start_eating = get_timestamp();
 	while ((get_timestamp() - (*philo).start_eating < (*philo).time_to_eat))
 	{
 		if (get_timestamp() - (*philo).last_eat >= (*philo).time_to_die)
-			philo_is_dead(philo);
+			print_state(philo, -1);
 		usleep(1000);
 	}
 	pthread_mutex_unlock(&(*philo).mutex);
@@ -152,7 +170,6 @@ int	exec(int ac, char **av)
 {
 	int		i;
 	int		stop;
-	// t_write	write;
 	t_philo	*philo;
 	
 	i = -1;

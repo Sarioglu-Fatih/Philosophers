@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:52:06 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/01/30 15:43:43 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:25:00 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct		s_philo
 	pthread_t		thread;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	*mutex_left;
-	pthread_mutex_t	*writing;
+	pthread_mutex_t	*writing_ptr;
 	int				philo_no;
 	int				max_philo;
 	int				eat_nb;
@@ -43,10 +43,10 @@ typedef struct		s_philo
 	long			time_stamp;
 }					t_philo;
 
-typedef struct		s_write
-{
-	pthread_mutex_t	writing;
-}					t_write;
+// typedef struct		s_write
+// {
+// 	pthread_mutex_t	writing_mutex;
+// }					t_write;
 
 //parsing
 int	parsing(int ac, char **av);
