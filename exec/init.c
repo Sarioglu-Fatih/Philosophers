@@ -6,24 +6,23 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:42:39 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/10 15:49:27 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:41:20 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static void	mutex_init(t_philo **philo, int snb, pthread_mutex_t *mutex_write_main)
+static void	mutex_init(t_philo **philo, int snb)
 {
 	int	i;
 
 	i = -1;
-	pthread_mutex_init(&(*mutex_write_main), NULL);
 	while (++i < snb)
 	{
 		(*philo)[i].dead = FALSE;
-		(*philo)[i].mutex_write = &(*mutex_write_main);
 		pthread_mutex_init(&(*philo)[i].mutex, NULL);
 		pthread_mutex_init(&(*philo)[i].mutex_state, NULL);
+		pthread_mutex_init(&(*philo)[i].mutex_last_eat, NULL);
 	}
 	i = 0;
 	if (snb > 1)
@@ -34,7 +33,7 @@ static void	mutex_init(t_philo **philo, int snb, pthread_mutex_t *mutex_write_ma
 	}
 }
 
-int	init(t_philo **philo, int ac, char **av, pthread_mutex_t *mutex_write_main)
+int	init(t_philo **philo, int ac, char **av)
 {
 	int	i;
 
@@ -57,6 +56,6 @@ int	init(t_philo **philo, int ac, char **av, pthread_mutex_t *mutex_write_main)
 			(*philo)[i].minimum_eat = -1;
 		i++;
 	}
-	mutex_init(philo, ft_atoi(av[1]), mutex_write_main);
+	mutex_init(philo, ft_atoi(av[1]));
 	return (0);
 }

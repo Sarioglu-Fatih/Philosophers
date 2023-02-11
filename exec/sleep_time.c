@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:23:53 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/09 18:55:25 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:29:23 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,21 @@ void	sleep_time(t_philo *philo)
 	usleep((*philo).philo_no);
 	pthread_mutex_lock(&(*philo).mutex_state);
 	if ((*philo).state != DEAD && (*philo).state != STOP)
-		print_state(philo, new_timestamp((*philo).time_stamp), (*philo).philo_no, 1);
+		print_state(philo, (*philo).philo_no, 1);
 	if ((*philo).eat_nb >= (*philo).minimum_eat && (*philo).minimum_eat != -1
 			&& (*philo).state != DEAD)
 		(*philo).state = FINISH_EAT;
 	pthread_mutex_unlock(&(*philo).mutex_state);
 	(*philo).start_sleep = get_timestamp();
-	while (get_timestamp() - (*philo).start_sleep <= (*philo).time_to_sleep)
+	while (1)
 	{
-		if (get_timestamp() - (*philo).last_eat >= (*philo).time_to_die)
+		pthread_mutex_lock(&(*philo).mutex_last_eat);
+		if (new_timestamp((*philo).start_sleep) >= (*philo).time_to_sleep)
 		{
-			print_state(philo, new_timestamp((*philo).time_stamp), (*philo).philo_no, -1);
-			pthread_mutex_lock(&(*philo).mutex_state);
-			(*philo).state = DEAD;
-			pthread_mutex_unlock(&(*philo).mutex_state);
-		}
-		pthread_mutex_lock(&(*philo).mutex_state);
-		if ((*philo).state == DEAD || (*philo).state == STOP)
-		{
-			pthread_mutex_unlock(&(*philo).mutex_state);
+			pthread_mutex_unlock(&(*philo).mutex_last_eat);
 			break;
 		}
-		pthread_mutex_unlock(&(*philo).mutex_state);
-		usleep(200);
+		pthread_mutex_unlock(&(*philo).mutex_last_eat);
+		usleep(500);
 	}
 }

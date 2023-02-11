@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/10 16:45:33 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:28:30 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*routine(void *arg)
 		{
 			pthread_mutex_unlock(&(*philo).mutex_state);
 			usleep(50000);
-			break;
+			return (NULL);
 		}
 		pthread_mutex_unlock(&(*philo).mutex_state);
 		eat(philo);
@@ -41,11 +41,10 @@ int	exec(int ac, char **av)
 	int				i;
 	int				snb;
 	t_philo			*philo;
-	pthread_mutex_t	mutex_write_main;
 	
 	i = -1;
 	snb = ft_atoi(av[1]);
-	if (init(&philo, ac, av, &mutex_write_main) == ERROR)
+	if (init(&philo, ac, av) == ERROR)
 		return (free_struct(&philo, ft_atoi(av[1]), ERROR));
 	set_timestamp(&philo);
 	while (++i < snb)
@@ -53,10 +52,10 @@ int	exec(int ac, char **av)
 	i = 0;
 	while (check(&philo, snb) == 0)
 		;
-	usleep(2000);
+	usleep(200000);
 	i = -1;
-	while (++i < snb)
-		pthread_detach(philo[i].thread);
+	// while (++i < snb)
+	// 	pthread_detach(philo[i].thread);
 	i = -1;
 	while (++i < snb)
 	{

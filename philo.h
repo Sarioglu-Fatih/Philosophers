@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:52:06 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/10 15:49:39 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:40:52 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ typedef struct		s_philo
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	*mutex_left;
 	pthread_mutex_t	mutex_state;
-	pthread_mutex_t	*mutex_write;
+	pthread_mutex_t	mutex_last_eat;
 	int				philo_no;
 	int				max_philo;
 	int				eat_nb;
 	int				minimum_eat;
 	long			last_eat;
-	long			last_eat_bis;
 	int				time_to_eat;
 	int				time_to_sleep;
 	long			time_to_die;
@@ -60,8 +59,8 @@ int		exec(int ac, char **av);
 void	sleep_time(t_philo *philo);
 long	new_timestamp(long time_stamp);
 int		check(t_philo **philo, int snb);
-void	print_state(t_philo *philo, long time_stamp, int philo_no, int state);
-int		init(t_philo **philo, int ac, char **av, pthread_mutex_t *mutex_write_main);
+void	print_state(t_philo *philo, int philo_no, int state);
+int		init(t_philo **philo, int ac, char **av);
 
 //utils
 char	*ft_itoa(int n);

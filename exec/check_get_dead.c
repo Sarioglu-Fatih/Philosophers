@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:39:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/09 18:27:44 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:24:49 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	get_stop(t_philo **philo, int state, int snb)
 	while (i < snb)
 	{
 		pthread_mutex_lock(&(*philo)[i].mutex_state);
-		(*philo)[i].state = state;
+		if ((*philo)[i].state != DEAD)
+			(*philo)[i].state = state;
 		pthread_mutex_unlock(&(*philo)[i].mutex_state);
 		i++;
 	}
@@ -39,15 +40,21 @@ int	check(t_philo **philo, int snb)
 		eated = TRUE;
 		while (i < snb)
 		{
-			pthread_mutex_lock(&(*philo)[i].mutex_state);
-			if ((*philo)[i].state == DEAD)
+			pthread_mutex_lock(&(*philo)[i].mutex_last_eat);
+			if (new_timestamp((*philo)[i].last_eat) >= (*philo)[i].time_to_die)
 			{
+				pthread_mutex_lock(&(*philo)[i].mutex_state);
+				(*philo)[i].state = DEAD;
 				pthread_mutex_unlock(&(*philo)[i].mutex_state);
-				return (get_stop(philo, DEAD, snb));
+				pthread_mutex_unlock(&(*philo)[i].mutex_last_eat);
+				print_state(&(*philo)[i], i, -1);
+				return (get_stop(&(*philo), STOP, snb));
 			}
+			pthread_mutex_lock(&(*philo)[i].mutex_state);
 			if ((*philo)[i].state != 3)
 				eated = FALSE;
 			pthread_mutex_unlock(&(*philo)[i].mutex_state);
+			pthread_mutex_unlock(&(*philo)[i].mutex_last_eat);
 			i++;
 		}
 		if (eated == TRUE)
