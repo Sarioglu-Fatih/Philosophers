@@ -3,18 +3,22 @@ NAME	=				philo
 SRCS	=				main.c					\
 						parsing.c				\
 												\
-						utils/put_fd.c			\
-						utils/ft_strlen.c		\
-						utils/ft_atoi.c			\
-						utils/free_struct.c		\
+						exec/eat.c				\
+						exec/init.c				\
+						exec/exec.c				\
+						exec/think.c			\
+						exec/sleep_time.c		\
+						exec/print_state.c		\
+						exec/new_timestamp.c	\
+						exec/check_get_dead.c	\
+												\
 						utils/ft_itoa.c			\
+						utils/ft_atoi.c			\
+						utils/ft_strlen.c		\
+						utils/get_usleep.c		\
+						utils/free_struct.c		\
 						utils/set_timestamp.c	\
 						utils/get_timestamp.c	\
-												\
-						exec/exec.c				\
-						exec/init.c				\
-						exec/philo_is_dead.c	\
-						exec/new_timestamp.c	\
 
 HEADER_FILES =			philo.h
 
@@ -23,7 +27,7 @@ OBJS	=		${SRCS:.c=.o}
 CC		=				gcc
 RM		=				rm -f
 
-CFLAGS	=				-Wall -Wextra -Werror #-fsanitize=thread
+CFLAGS	=				-Wall -Wextra -pthread -Werror #-fsanitize=thread
 
 all:			${NAME}
 

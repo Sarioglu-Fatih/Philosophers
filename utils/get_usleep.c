@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_struct.c                                      :+:      :+:    :+:   */
+/*   get_usleep.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:53:15 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/07 16:28:30 by fsariogl         ###   ########.fr       */
+/*   Created: 2023/02/06 15:00:19 by fsariogl          #+#    #+#             */
+/*   Updated: 2023/02/06 15:01:25 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	free_struct(t_philo **philo, int snb, int ret)
+void	get_usleep(long time)
 {
-	int		i;
+	struct timeval	tv;
+	long			fixe_time;
+	long			mobile_time;
 
-	i = 0;
-	while (i < snb)
+	gettimeofday(&tv, NULL);
+	fixe_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	mobile_time = fixe_time;
+	while (mobile_time - fixe_time < time)
 	{
-		if (philo[i])
-			free(philo[i]);
-		i++;
+		gettimeofday(&tv, NULL);
+		mobile_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+		usleep(300);
 	}
-	return (ret);
 }

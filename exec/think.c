@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_is_dead.c                                    :+:      :+:    :+:   */
+/*   think.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 18:07:45 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/01/30 17:00:38 by fsariogl         ###   ########.fr       */
+/*   Created: 2023/02/06 15:27:59 by fsariogl          #+#    #+#             */
+/*   Updated: 2023/02/09 18:37:06 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	philo_is_dead(t_philo *philo)
+void	think(t_philo *philo)
 {
-	static int	is_print = 0;
-
-	(*philo).dead = TRUE;
-	if (is_print == 0)
-	{	
-		is_print = 1;
-	}
+	pthread_mutex_lock(&(*philo).mutex_state);
+	if ((*philo).state != DEAD && (*philo).state != STOP)
+		print_state(philo, new_timestamp((*philo).time_stamp), (*philo).philo_no, 2);
+	pthread_mutex_unlock(&(*philo).mutex_state);
 }
