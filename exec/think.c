@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:27:59 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/13 14:43:27 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:52:27 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	think(t_philo *philo)
 {
+	int	state_bis;
+
 	pthread_mutex_lock(&(*philo).mutex_state);
-	if ((*philo).state != DEAD && (*philo).state != STOP)
-		print_state(philo, (*philo).philo_no, 2);
+	state_bis = (*philo).state;
 	pthread_mutex_unlock(&(*philo).mutex_state);
+	if (state_bis != DEAD && state_bis != STOP)
+		print_state(philo, (*philo).philo_no, 2);
 	usleep(500);
 }

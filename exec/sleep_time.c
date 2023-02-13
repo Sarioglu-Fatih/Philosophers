@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:23:53 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/13 17:51:36 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:50:58 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ void	sleep_time(t_philo *philo)
 {
 	int	state_bis;
 
-	usleep((*philo).philo_no);
 	pthread_mutex_lock(&(*philo).mutex_state);
-	if ((*philo).state != DEAD && (*philo).state != STOP)
+	state_bis = (*philo).state;
+	pthread_mutex_unlock(&(*philo).mutex_state);
+	usleep((*philo).philo_no);
+	if (state_bis != DEAD && state_bis != STOP)
 		print_state(philo, (*philo).philo_no, 1);
 	if ((*philo).eat_nb >= (*philo).minimum_eat && (*philo).minimum_eat != -1
-			&& (*philo).state != DEAD)
+			&& state_bis != DEAD)
+	{
+		pthread_mutex_lock(&(*philo).mutex_state);
 		(*philo).state = FINISH_EAT;
-	pthread_mutex_unlock(&(*philo).mutex_state);
+		pthread_mutex_unlock(&(*philo).mutex_state);
+	}
 	(*philo).start_sleep = get_timestamp();
 	while (1)
 	{
