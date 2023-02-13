@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:42:39 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/11 17:41:20 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:06:08 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	mutex_init(t_philo **philo, int snb)
 		pthread_mutex_init(&(*philo)[i].mutex, NULL);
 		pthread_mutex_init(&(*philo)[i].mutex_state, NULL);
 		pthread_mutex_init(&(*philo)[i].mutex_last_eat, NULL);
+		pthread_mutex_init(&(*philo)[i].mutex_time_stamp, NULL);
 	}
 	i = 0;
 	if (snb > 1)

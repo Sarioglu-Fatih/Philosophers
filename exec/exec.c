@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/11 19:28:30 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:55:13 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	*routine(void *arg)
 {
+	int	state_bis;
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
@@ -22,13 +23,13 @@ void	*routine(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&(*philo).mutex_state);
-		if ((*philo).state == DEAD || (*philo).state == STOP)
+		state_bis = (*philo).state;
+		pthread_mutex_unlock(&(*philo).mutex_state);
+		if (state_bis == DEAD || state_bis == STOP)
 		{
-			pthread_mutex_unlock(&(*philo).mutex_state);
-			usleep(50000);
+			sleep(1);
 			return (NULL);
 		}
-		pthread_mutex_unlock(&(*philo).mutex_state);
 		eat(philo);
 		sleep_time(philo);
 		think(philo);
@@ -52,10 +53,10 @@ int	exec(int ac, char **av)
 	i = 0;
 	while (check(&philo, snb) == 0)
 		;
-	usleep(200000);
+	usleep(1000);
 	i = -1;
-	// while (++i < snb)
-	// 	pthread_detach(philo[i].thread);
+	while (++i < snb)
+		pthread_detach(philo[i].thread);
 	i = -1;
 	while (++i < snb)
 	{

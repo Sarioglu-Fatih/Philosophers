@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:23:53 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/11 19:36:20 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:51:36 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	sleep_time(t_philo *philo)
 {
+	int	state_bis;
+
 	usleep((*philo).philo_no);
 	pthread_mutex_lock(&(*philo).mutex_state);
 	if ((*philo).state != DEAD && (*philo).state != STOP)
@@ -25,14 +27,14 @@ void	sleep_time(t_philo *philo)
 	(*philo).start_sleep = get_timestamp();
 	while (1)
 	{
-		pthread_mutex_lock(&(*philo).mutex_last_eat);
+		pthread_mutex_lock(&(*philo).mutex_state);
+		state_bis = (*philo).state;
+		pthread_mutex_unlock(&(*philo).mutex_state);
 		if (new_timestamp((*philo).start_sleep) >= (*philo).time_to_sleep
-			|| (*philo).state == STOP || (*philo).state == DEAD)
+			|| state_bis == STOP || state_bis == DEAD)
 		{
-			pthread_mutex_unlock(&(*philo).mutex_last_eat);
 			break;
 		}
-		pthread_mutex_unlock(&(*philo).mutex_last_eat);
 		usleep(500);
 	}
 }

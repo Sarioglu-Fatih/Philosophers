@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:52:06 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/11 17:40:52 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:53:31 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_philo
 	pthread_mutex_t	*mutex_left;
 	pthread_mutex_t	mutex_state;
 	pthread_mutex_t	mutex_last_eat;
+	pthread_mutex_t	mutex_time_stamp;
 	int				philo_no;
 	int				max_philo;
 	int				eat_nb;

@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:39:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/11 19:24:49 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:53:25 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int	check(t_philo **philo, int snb)
 				(*philo)[i].state = DEAD;
 				pthread_mutex_unlock(&(*philo)[i].mutex_state);
 				pthread_mutex_unlock(&(*philo)[i].mutex_last_eat);
+				get_stop(&(*philo), STOP, snb);
 				print_state(&(*philo)[i], i, -1);
-				return (get_stop(&(*philo), STOP, snb));
+				return (-1);
 			}
 			pthread_mutex_lock(&(*philo)[i].mutex_state);
 			if ((*philo)[i].state != 3)
