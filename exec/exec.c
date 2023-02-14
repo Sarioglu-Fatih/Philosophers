@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 16:53:13 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:09:36 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if ((*philo).philo_no % 2)
-		get_usleep(80);
+		usleep(300);
 	while (1)
 	{
 		pthread_mutex_lock(&(*philo).mutex_state);

@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:19:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 16:48:14 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:01:33 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	eat(t_philo *philo)
 		{
 			break;
 		}
-		usleep(1000);
+		usleep(200);
 	}
 	pthread_mutex_unlock(&(*philo).mutex);
 	pthread_mutex_unlock((*philo).mutex_left);

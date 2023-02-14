@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:23:53 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 16:44:21 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:10:26 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	sleep_time(t_philo *philo)
 		{
 			break;
 		}
-		usleep(1000);
+		usleep(200);
 	}
-	get_usleep((*philo).time_to_sleep);
 }
