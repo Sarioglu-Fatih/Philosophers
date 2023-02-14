@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:12:47 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 14:34:20 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:43:41 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_state(t_philo *philo, int philo_no, int state)
 {
 	if (state == -1)
 	{
-		usleep(1000);
+		usleep(4000);
 		pthread_mutex_lock(&(*philo).mutex_time_stamp);
 		printf("%8ld ms  -  Philo No %4d  diedddddddd\n\n\n",
 		new_timestamp((*philo).time_stamp), philo_no);

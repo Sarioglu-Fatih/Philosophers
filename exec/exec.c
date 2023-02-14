@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 14:30:04 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:53:13 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&(*philo).mutex_state);
 		if (state_bis == DEAD || state_bis == STOP)
 		{
-			usleep(10000);
+			usleep(50000);
 			return (NULL);
 		}
 		eat(philo);
@@ -48,6 +48,13 @@ int	exec(int ac, char **av)
 	if (init(&philo, ac, av) == ERROR)
 		return (free_struct(&philo, ft_atoi(av[1]), ERROR));
 	set_timestamp(&philo);
+	if (ft_atoi(av[1]) == 1)
+	{
+		usleep(ft_atoi(av[2]) * 1000);
+		printf("%8ld ms  -  Philo No %4d  diedddddddd\n\n\n",
+		new_timestamp((*philo).time_stamp), 0);
+		return (0);
+	}
 	while (++i < snb)
 		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
 	i = 0;
