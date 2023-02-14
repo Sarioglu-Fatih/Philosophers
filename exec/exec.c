@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/13 17:55:13 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:30:04 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&(*philo).mutex_state);
 		if (state_bis == DEAD || state_bis == STOP)
 		{
-			sleep(1);
+			usleep(10000);
 			return (NULL);
 		}
 		eat(philo);

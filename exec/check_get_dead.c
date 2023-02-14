@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:39:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/13 20:57:13 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:34:15 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check(t_philo **philo, int snb)
 			pthread_mutex_lock(&(*philo)[i].mutex_last_eat);
 			if (new_timestamp((*philo)[i].last_eat) >= (*philo)[i].time_to_die)
 			{
+				// pthread_mutex_unlock(&(*philo)[i].mutex_last_eat);
 				pthread_mutex_lock(&(*philo)[i].mutex_state);
 				(*philo)[i].state = DEAD;
 				pthread_mutex_unlock(&(*philo)[i].mutex_state);
@@ -58,7 +59,9 @@ int	check(t_philo **philo, int snb)
 			i++;
 		}
 		if (eated == TRUE)
+		{
 			return (get_stop(philo, STOP, snb));
+		}
 	}
 	return (0);
 }
