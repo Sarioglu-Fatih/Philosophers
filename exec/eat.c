@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:19:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 17:01:33 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:22:53 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	lock_fork(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	int		state_bis;
-
+	usleep((*philo).philo_no * 4);
 	pthread_mutex_lock(&(*philo).mutex_state);
 	state_bis = (*philo).state;
 	pthread_mutex_unlock(&(*philo).mutex_state);

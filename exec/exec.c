@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 17:09:36 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:22:51 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if ((*philo).philo_no % 2)
-		usleep(300);
+		usleep(500);
 	while (1)
 	{
 		pthread_mutex_lock(&(*philo).mutex_state);
@@ -57,7 +57,6 @@ int	exec(int ac, char **av)
 	}
 	while (++i < snb)
 		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
-	i = 0;
 	while (check(&philo, snb) == 0)
 		;
 	usleep(1000);
