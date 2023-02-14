@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:19:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/14 17:22:53 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:25:50 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	eat(t_philo *philo)
 {
 	int		state_bis;
 	usleep((*philo).philo_no * 4);
-	pthread_mutex_lock(&(*philo).mutex_state);
-	state_bis = (*philo).state;
-	pthread_mutex_unlock(&(*philo).mutex_state);
 	lock_fork(philo);
-	if (state_bis != DEAD && state_bis != STOP)
-		print_state(philo, (*philo).philo_no, 0);
 	pthread_mutex_lock(&(*philo).mutex_last_eat);
 	(*philo).last_eat = get_timestamp();
 	pthread_mutex_unlock(&(*philo).mutex_last_eat);
+	pthread_mutex_lock(&(*philo).mutex_state);
+	state_bis = (*philo).state;
+	pthread_mutex_unlock(&(*philo).mutex_state);
+	if (state_bis != DEAD && state_bis != STOP)
+		print_state(philo, (*philo).philo_no, 0);
 	while (1)
 	{
 		pthread_mutex_lock(&(*philo).mutex_state);
