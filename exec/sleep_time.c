@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:23:53 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/16 15:37:25 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:48:06 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sleep_time(t_philo *philo)
 	pthread_mutex_unlock(&(*philo).mutex_state);
 	usleep((*philo).philo_no);
 	if (state_bis != DEAD && state_bis != STOP)
-		print_state(philo, (*philo).philo_no, 1);
+		print_state(philo, (*philo).philo_no + 1, 1);
 	if ((*philo).eat_nb >= (*philo).minimum_eat && (*philo).minimum_eat != -1
 		&& state_bis != DEAD)
 		get_finish_state(philo);

@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:42:39 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/15 20:36:58 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:44:10 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	init(t_philo **philo, int ac, char **av)
 	while (i < ft_atoi(av[1]))
 	{
 		(*philo)[i].eat_nb = 0;
-		(*philo)[i].philo_no = i + 1;
+		(*philo)[i].philo_no = i;
 		(*philo)[i].state = MUST_EAT;
 		(*philo)[i].max_philo = ft_atoi(av[1]);
 		(*philo)[i].time_to_die = ft_atoi(av[2]);
