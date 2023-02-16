@@ -6,18 +6,18 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:52:06 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/13 18:53:31 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:04:15 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <pthread.h>
+# include <stdio.h>
+# include <sys/time.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <pthread.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -27,7 +27,7 @@
 # define DEAD -2
 # define STOP -3
 
-typedef struct		s_philo
+typedef struct s_philo
 {
 	pthread_t		thread;
 	pthread_mutex_t	mutex;
@@ -51,7 +51,7 @@ typedef struct		s_philo
 }					t_philo;
 
 //parsing
-int	parsing(int ac, char **av);
+int		parsing(int ac, char **av);
 
 //exec
 void	eat(t_philo *philo);
@@ -60,16 +60,15 @@ int		exec(int ac, char **av);
 void	sleep_time(t_philo *philo);
 long	new_timestamp(long time_stamp);
 int		check(t_philo **philo, int snb);
-void	print_state(t_philo *philo, int philo_no, int state);
+void	free_struct(t_philo **philo, int snb);
 int		init(t_philo **philo, int ac, char **av);
+void	print_state(t_philo *philo, int philo_no, int state);
 
 //utils
-char	*ft_itoa(int n);
 long	get_timestamp(void);
-int	    ft_strlen(char *str);
+int		ft_strlen(char *str);
 void	get_usleep(long time);
 int		ft_atoi(const char *str);
 void	set_timestamp(t_philo **philo);
-int		free_struct(t_philo **philo, int snb, int ret);
 
 #endif

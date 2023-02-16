@@ -5,23 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:53:15 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/07 16:28:30 by fsariogl         ###   ########.fr       */
+/*   Created: 2023/02/15 16:19:41 by fsariogl          #+#    #+#             */
+/*   Updated: 2023/02/16 14:03:34 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	free_struct(t_philo **philo, int snb, int ret)
+void	free_struct(t_philo **philo, int snb)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < snb)
 	{
-		if (philo[i])
-			free(philo[i]);
+		pthread_mutex_destroy(&(*philo)[i].mutex);
+		pthread_mutex_destroy(&(*philo)[i].mutex_state);
+		pthread_mutex_destroy(&(*philo)[i].mutex_last_eat);
+		pthread_mutex_destroy(&(*philo)[i].mutex_time_stamp);
 		i++;
 	}
-	return (ret);
+	free(*philo);
+	(*philo) = NULL;
 }

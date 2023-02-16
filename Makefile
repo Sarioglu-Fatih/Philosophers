@@ -7,16 +7,15 @@ SRCS	=				main.c					\
 						exec/init.c				\
 						exec/exec.c				\
 						exec/think.c			\
+						exec/free_struct.c		\
 						exec/sleep_time.c		\
 						exec/print_state.c		\
 						exec/new_timestamp.c	\
 						exec/check_get_dead.c	\
 												\
-						utils/ft_itoa.c			\
 						utils/ft_atoi.c			\
 						utils/ft_strlen.c		\
 						utils/get_usleep.c		\
-						utils/free_struct.c		\
 						utils/set_timestamp.c	\
 						utils/get_timestamp.c	\
 
@@ -27,7 +26,7 @@ OBJS	=		${SRCS:.c=.o}
 CC		=				gcc
 RM		=				rm -f
 
-CFLAGS	=				-Wall -Wextra -pthread -Werror #-fsanitize=thread
+CFLAGS	=				-Wall -Wextra -pthread -Werror
 
 all:			${NAME}
 
