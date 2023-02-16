@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:23:53 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/15 20:04:31 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:37:25 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	get_finish_state(t_philo *philo)
 {
 	pthread_mutex_lock(&(*philo).mutex_state);
-	(*philo).state = FINISH_EAT;
+	if ((*philo).state != DEAD && (*philo).state != STOP)
+		(*philo).state = FINISH_EAT;
 	pthread_mutex_unlock(&(*philo).mutex_state);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:12:58 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/16 14:32:36 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:33:41 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*routine(void *arg)
 	int		state_bis;
 
 	philo = (t_philo *)arg;
+	think(philo);
 	if ((*philo).philo_no % 2)
 		usleep(20000);
 	while (1)
@@ -61,9 +62,6 @@ static void	stop_all_thread(t_philo *philo, int i, int snb)
 		philo[i].state = STOP;
 		pthread_mutex_unlock(&philo[i].mutex_state);
 	}
-	i = temp;
-	while (--i < 0)
-		pthread_detach(philo[i].thread);
 	i = temp;
 	while (i < 0)
 		pthread_join(philo[i].thread, NULL);
