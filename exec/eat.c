@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:19:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/16 18:02:06 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:27:35 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,42 @@ static void	lock_odd_fork(t_philo *philo)
 {
 	pthread_mutex_lock((*philo).mutex_left);
 	pthread_mutex_lock(&(*philo).mutex_time_stamp);
-	printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
+	pthread_mutex_lock(&(*philo).mutex_state);
+	if ((*philo).state != DEAD && (*philo).state != STOP)
+		printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
 		new_timestamp((*philo).time_stamp), (*philo).philo_no + 1);
+	pthread_mutex_unlock(&(*philo).mutex_state);
 	pthread_mutex_unlock(&(*philo).mutex_time_stamp);
 	pthread_mutex_lock(&(*philo).mutex);
 	pthread_mutex_lock(&(*philo).mutex_time_stamp);
-	printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
+	pthread_mutex_lock(&(*philo).mutex_state);
+	if ((*philo).state != DEAD && (*philo).state != STOP)
+		printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
 		new_timestamp((*philo).time_stamp), (*philo).philo_no + 1);
+	pthread_mutex_unlock(&(*philo).mutex_state);
 	pthread_mutex_unlock(&(*philo).mutex_time_stamp);
 }
 
 static void	lock_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&(*philo).mutex_state);
-	if ((*philo).state == STOP || (*philo).state == DEAD)
-		return ;
-	pthread_mutex_unlock(&(*philo).mutex_state);
 	if (((*philo).philo_no % 2) == 0 && ((*philo).philo_no
 			!= (*philo).max_philo))
 	{
 		pthread_mutex_lock(&(*philo).mutex);
 		pthread_mutex_lock(&(*philo).mutex_time_stamp);
-		printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
+		pthread_mutex_lock(&(*philo).mutex_state);
+		if ((*philo).state != DEAD && (*philo).state != STOP)
+			printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
 			new_timestamp((*philo).time_stamp), (*philo).philo_no + 1);
+		pthread_mutex_unlock(&(*philo).mutex_state);
 		pthread_mutex_unlock(&(*philo).mutex_time_stamp);
 		pthread_mutex_lock((*philo).mutex_left);
-		pthread_mutex_lock(&(*philo).mutex_time_stamp);
-		printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
+		pthread_mutex_unlock(&(*philo).mutex_time_stamp);
+		pthread_mutex_unlock(&(*philo).mutex_state);
+		if ((*philo).state != DEAD && (*philo).state != STOP)
+			printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
 			new_timestamp((*philo).time_stamp), (*philo).philo_no + 1);
+		pthread_mutex_unlock(&(*philo).mutex_state);
 		pthread_mutex_unlock(&(*philo).mutex_time_stamp);
 	}
 	else
