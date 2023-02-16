@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:12:47 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/15 20:38:43 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:06:55 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_state(t_philo *philo, int philo_no, int state)
 	{
 		pthread_mutex_lock(&(*philo).mutex_time_stamp);
 		printf("%8ld ms  -  Philo No %4d  is eating\n",
-			new_timestamp((*philo).time_stamp), philo_no);
+			new_timestamp((*philo).time_stamp), philo_no + 1);
 		pthread_mutex_unlock(&(*philo).mutex_time_stamp);
 	}
 	else
