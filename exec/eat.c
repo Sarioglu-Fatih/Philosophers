@@ -6,7 +6,7 @@
 /*   By: fsariogl <fsariogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:19:49 by fsariogl          #+#    #+#             */
-/*   Updated: 2023/02/16 18:27:35 by fsariogl         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:22:24 by fsariogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	lock_fork(t_philo *philo)
 		pthread_mutex_unlock(&(*philo).mutex_state);
 		pthread_mutex_unlock(&(*philo).mutex_time_stamp);
 		pthread_mutex_lock((*philo).mutex_left);
-		pthread_mutex_unlock(&(*philo).mutex_time_stamp);
-		pthread_mutex_unlock(&(*philo).mutex_state);
+		pthread_mutex_lock(&(*philo).mutex_time_stamp);
+		pthread_mutex_lock(&(*philo).mutex_state);
 		if ((*philo).state != DEAD && (*philo).state != STOP)
 			printf("%8ld ms  -  Philo No %4d  has taken a fork\n",
 			new_timestamp((*philo).time_stamp), (*philo).philo_no + 1);
