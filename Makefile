@@ -19,28 +19,31 @@ SRCS	=				main.c					\
 						utils/set_timestamp.c	\
 						utils/get_timestamp.c	\
 
-HEADER_FILES =			philo.h
+HEADER_FILES	=	philo.h
 
-OBJS	=		${SRCS:.c=.o}
+OBJ_DIR			=	obj/
+OBJS			=	$(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-CC		=				gcc
-RM		=				rm -f
+CC				=	gcc
+RM				=	rm -rf
+MKDIR			=	mkdir -p
 
-CFLAGS	=				-Wall -Wextra -pthread -Werror
+CFLAGS			=	-Wall -Wextra -pthread -Werror -fsanitize=thread
 
-all:			${NAME}
+all				:	$(NAME)
 
-%.o : %.c		${HEADER_FILES} Makefile
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o} 
+$(OBJ_DIR)%.o	:	%.c	$(HEADER_FILES) Makefile
+			@$(MKDIR) $(dir $@)
+			$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):		${OBJS}
-				@${CC} ${CFLAGS} -o $@ $^
-clean:
-				${RM} ${OBJS}
+$(NAME)			:	$(OBJS)
+			@$(CC) $(CFLAGS) -o $@ $^
+clean			:
+			$(RM) $(OBJ_DIR)
 
-fclean:			clean
-				${RM} $(NAME)
+fclean			:	clean
+			$(RM) $(NAME)
 
-re:				fclean all
+re				:	fclean all
 
-.PHONY:			all clean fclean re philo
+.PHONY			:	all clean fclean re philo

@@ -1,0 +1,17 @@
+Ce projet a pour but de maintenir des threads en vie dans le temps imparti, chaque thread étant représanté par un philosophe et ayant les fourchettes en commun se qui implique le risque de datarace et est évité avec l'utilisation de mutex.
+Chaque philosophe a une fourchette et ont besoin de 2 fourchettes pour pouvoir manger, lorsqu'ils ont finit de manger il vont dormir et lorsqu'ils attendent de pouvoir manger à nouveau, ils pensent.
+
+Pour compiler le programme il vous suffit de taper la commande make.
+
+Le programme prend les paramètres numérique suivants ; (durée en milliseconde)
+    - Nombre de philosophe
+    - Temps avant de mourir s'ils ne mangent pas
+    - Temps pour manger
+    - Temps pour dormir
+    - Nombre de fois où les philosophes doivent mager pour terminer le programme (optionnel)
+
+Exemple ;
+    - ./philo 30 400 60 45 10
+    - ./philo 40 800 120 40 12 > resultat
+
+Le 1er exemple permet d'avoir le résultat dans le terminal et le second, dans un fichier nommé resultat, les résultats peuvent varier en fonction de votre machine puisqu'ils dépendent des threads.
