@@ -28,7 +28,7 @@ CC				=	gcc
 RM				=	rm -rf
 MKDIR			=	mkdir -p
 
-CFLAGS			=	-Wall -Wextra -pthread -Werror -fsanitize=thread
+CFLAGS			=	-Wall -Wextra -pthread -Werror
 
 all				:	$(NAME)
 
