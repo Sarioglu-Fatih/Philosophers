@@ -1,3 +1,5 @@
+Ubuntu 23.08
+
 Ce projet a pour but de maintenir des threads en vie dans le temps imparti, chaque thread étant représanté par un philosophe et ayant les fourchettes en commun se qui implique le risque de datarace et est évité avec l'utilisation de mutex.
 Chaque philosophe a une fourchette et ont besoin de 2 fourchettes pour pouvoir manger, lorsqu'ils ont finit de manger il vont dormir et lorsqu'ils attendent de pouvoir manger à nouveau, ils pensent.
 
@@ -25,3 +27,5 @@ usleep, gettimeofday, pthread_create,
 pthread_detach, pthread_join, pthread_mutex_init,
 pthread_mutex_destroy, pthread_mutex_lock,
 pthread_mutex_unlock
+
+Plus d'info dans subject.
