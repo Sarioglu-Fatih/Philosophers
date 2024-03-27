@@ -10,7 +10,7 @@ Le programme prend les paramètres numérique suivants : (durée en milliseconde
     - Temps avant de mourir s'ils ne mangent pas
     - Temps pour manger
     - Temps pour dormir
-    - Nombre de fois où les philosophes doivent mager pour terminer le programme (optionnel)
+    - Nombre de fois où les philosophes doivent manger pour terminer le programme (optionnel)
 
 Exemple :
     - ./philo 30 400 60 45 10
