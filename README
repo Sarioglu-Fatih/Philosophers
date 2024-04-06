@@ -20,12 +20,12 @@ Le 1er exemple permet d'avoir le résultat dans le terminal et le second, dans u
 
 
 
-fonction externe autorisée :
+Fonctions externes autorisées :
 
-memset, printf, malloc, free, write,
-usleep, gettimeofday, pthread_create,
-pthread_detach, pthread_join, pthread_mutex_init,
-pthread_mutex_destroy, pthread_mutex_lock,
-pthread_mutex_unlock
+    memset, printf, malloc, free, write,
+    usleep, gettimeofday, pthread_create,
+    pthread_detach, pthread_join, pthread_mutex_init,
+    pthread_mutex_destroy, pthread_mutex_lock,
+    pthread_mutex_unlock
 
 Plus d'info dans subject.
