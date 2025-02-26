@@ -28,4 +28,3 @@ Fonctions externes autorisées :
     pthread_mutex_destroy, pthread_mutex_lock,
     pthread_mutex_unlock
 
-Plus d'info dans subject.
